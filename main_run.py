@@ -120,6 +120,8 @@ def process_video_graph(video_path, side='d', output_path=None, show=False):
                 angle_hip = 180 - angle_hip
                 angle_knee = 180 - angle_knee
 
+                print(f'Joint Angles | Hip: {angle_hip} - Knee: {angle_hip}')
+
                 # Armazenar ângulos
                 knee_angles.append(angle_knee)
                 hip_angles.append(angle_hip)
