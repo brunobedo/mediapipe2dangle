@@ -157,3 +157,5 @@ cython_debug/
 # Notebooks
 *.ipynb
 
+# Folders
+results_videos/
