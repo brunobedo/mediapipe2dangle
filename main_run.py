@@ -184,14 +184,19 @@ def process_video_graph(video_path, side='d', output_path=None, show=False):
 
 
 
-def run_markerless(video_path, side='d', save=True):
+def run_markerless(video_path, side='d', save=True, show=False, trial='', camera=5):
+    
+    main_folder = video_path.split('.')[0]
+    
+    # Get parent folder
+    parent_dir_of_last_folder = os.path.dirname(main_folder)
+
     # Get the base name without extension
     main_name = os.path.splitext(os.path.basename(video_path))[0]
 
     # Extract the folder name from the video path
-    folder = os.path.basename(os.path.dirname(video_path))
-    res_folder = f'results_{folder}/{main_name}'
-    
+    res_folder = f'{parent_dir_of_last_folder}/results/{main_name}'
+
     # Ensure that the directory exists
     os.makedirs(res_folder, exist_ok=True)
     
@@ -204,7 +209,7 @@ def run_markerless(video_path, side='d', save=True):
     
     # Process the video and save results
     print(video_path)
-    df_angles = process_video_graph(video_path, side=side, output_path=output_vid, show=True)
+    df_angles = process_video_graph(video_path, side=side, output_path=output_vid, show=show)
     print(df_angles)
     if save is True:
         print(output_df) 
@@ -220,8 +225,9 @@ if __name__ == '__main__':
     parser.add_argument('--trial', type=int, required=False, help="Número do trial")
     parser.add_argument('--side', type=str, default='d', help="Lado do corpo (d para direito, e para esquerdo)")
     parser.add_argument('--videopath', type=str, required=True, help="Caminho do vídeo")
-    parser.add_argument('--save', type=bool, required=True, help="Caminho do vídeo")
+    parser.add_argument('--save', required=False, help="Salvar em CSV")
+    parser.add_argument('--show', required=False, help="Mostrar o vídeo")
 
     args = parser.parse_args()
     
-    run_markerless(args.videopath, side=args.side)
+    run_markerless(video_path=args.videopath, side=args.side, save=args.save, show=args.show, trial=args.trial, camera=args.camera)
