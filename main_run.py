@@ -8,6 +8,16 @@ from PIL import Image
 import maintools as tools
 import os
 import argparse
+import sys
+
+
+def update_angles(angle_hip, angle_knee):
+    # Construa a string formatada
+    output = f'Joint Angles | Hip: {round(angle_hip, 2)} - Knee: {round(angle_knee, 2)}'
+    # Use \r para retornar ao início da linha e sobrescrever o texto
+    sys.stdout.write(f'\r{output}')
+    sys.stdout.flush()
+
 
 
 def plot_to_image(frame_ids, knee_angles, hip_angles):
@@ -57,6 +67,8 @@ def plot_to_image(frame_ids, knee_angles, hip_angles):
 
 
 def process_video_graph(video_path, side='d', output_path=None, show=False, save=True):
+    print(' ')
+    print('Calculating Jointe angles:')
     mp_pose = mp.solutions.pose
     mp_drawing = mp.solutions.drawing_utils
 
@@ -120,7 +132,8 @@ def process_video_graph(video_path, side='d', output_path=None, show=False, save
                 angle_hip = 180 - angle_hip
                 angle_knee = 180 - angle_knee
 
-                print(f'Joint Angles | Hip: {round(angle_hip,2)} - Knee: {round(angle_hip,2)}')
+                # Print joint angles
+                update_angles(angle_hip, angle_knee)
 
                 # Armazenar ângulos
                 knee_angles.append(angle_knee)
@@ -183,7 +196,15 @@ def process_video_graph(video_path, side='d', output_path=None, show=False, save
 
 
 def run_markerless(video_path, side='d', save=True, show=False):
-    
+    print('-----------------------------------')
+    print('Calculating Hip and Knee Flexion:')
+    print(' ')
+    # Implemente a função conforme necessário
+    print(f'Video Path: {video_path}')
+    print(f'Side: {side}')
+    print(f'Save: {save}')
+    print(f'Show: {show}')
+
     # Get the main folder
     main_folder = video_path.split('.')[0]
     
