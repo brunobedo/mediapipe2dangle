@@ -64,7 +64,7 @@ def process_video_graph(video_path, side='d', output_path=None, show=False, save
     cap = cv2.VideoCapture(video_path)
 
     # Definir codec e criar VideoWriter para salvar o vídeo com ffmpeg
-    if save is True:
+    if show is True:
         fourcc = cv2.VideoWriter_fourcc(*'mp4v')
         fps = cap.get(cv2.CAP_PROP_FPS)
         frame_width = int(cap.get(3))
@@ -157,7 +157,7 @@ def process_video_graph(video_path, side='d', output_path=None, show=False, save
             image[y_offset:y_offset + graph_img.shape[0], x_offset:x_offset + graph_img.shape[1]] = graph_img
 
             # Escrever o frame no vídeo de saída
-            if save == True:
+            if show == True:
                 if output_path:
                     out.write(image)
             
@@ -182,11 +182,9 @@ def process_video_graph(video_path, side='d', output_path=None, show=False, save
 
 
 
-
 def run_markerless(video_path, side='d', save=True, show=False):
     
-    print('  ')
-    print(save)
+    # Get the main folder
     main_folder = video_path.split('.')[0]
     
     # Get parent folder
@@ -221,13 +219,26 @@ def run_markerless(video_path, side='d', save=True, show=False):
         if save is True:
             tools.plot_angle(df_angles, save=True, output=output_fig)
 
+
+
+def str_to_bool(value):
+    if value.lower() in ('true', '1', 't', 'y', 'yes'):
+        return True
+    elif value.lower() in ('false', '0', 'f', 'n', 'no'):
+        return False
+    else:
+        raise argparse.ArgumentTypeError(f"Boolean value expected, got '{value}'")
+
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Processa vídeos e calcula ângulos de joelho e quadril.")
     parser.add_argument('--side', type=str, default='d', help="Lado do corpo (d para direito, e para esquerdo)")
     parser.add_argument('--videopath', type=str, required=True, help="Caminho do vídeo")
-    parser.add_argument('--save', required=False, help="Salvar em CSV")
-    parser.add_argument('--show', required=False, help="Mostrar o vídeo")
+    parser.add_argument('--save', type=str_to_bool, default=True, help="Salvar em CSV (True ou False)")
+    parser.add_argument('--show', type=str_to_bool, default=False, help="Mostrar o vídeo (True ou False)")
 
     args = parser.parse_args()
     
     run_markerless(video_path=args.videopath, side=args.side, save=args.save, show=args.show)
+    
