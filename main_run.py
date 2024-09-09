@@ -88,7 +88,7 @@ def process_video_graph(video_path, side='d', output_path=None, show=False, save
     knee_angles = []
     frame_ids = []
 
-    with mp_pose.Pose(min_detection_confidence=0.9, min_tracking_confidence=0.9) as pose:
+    with mp_pose.Pose(min_detection_confidence=0.7, min_tracking_confidence=0.7) as pose:
         frame_id = 0
         while cap.isOpened():
             ret, frame = cap.read()
@@ -262,4 +262,10 @@ if __name__ == '__main__':
     args = parser.parse_args()
     
     run_markerless(video_path=args.videopath, side=args.side, save=args.save, show=args.show)
+
+    # file = 'E:/Mestrado/Coletas/voluntarios/ANC/gopro/editados/03/anc_03_s3_t1e.mp4'
+    # run_markerless(video_path=file, side='e', save=True, show=True)
+
+
+
     
