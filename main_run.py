@@ -76,7 +76,7 @@ def process_video_graph(video_path, side='d', output_path=None, show=False):
     knee_angles = []
     frame_ids = []
 
-    with mp_pose.Pose(min_detection_confidence=0.1, min_tracking_confidence=0.1) as pose:
+    with mp_pose.Pose(min_detection_confidence=0.9, min_tracking_confidence=0.9) as pose:
         frame_id = 0
         while cap.isOpened():
             ret, frame = cap.read()
