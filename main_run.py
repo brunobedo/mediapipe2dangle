@@ -56,7 +56,7 @@ def plot_to_image(frame_ids, knee_angles, hip_angles):
 
 
 
-def process_video_graph(video_path, side='d', output_path=None, show=False):
+def process_video_graph(video_path, side='d', output_path=None, show=False, save=True):
     mp_pose = mp.solutions.pose
     mp_drawing = mp.solutions.drawing_utils
 
@@ -64,7 +64,7 @@ def process_video_graph(video_path, side='d', output_path=None, show=False):
     cap = cv2.VideoCapture(video_path)
 
     # Definir codec e criar VideoWriter para salvar o vídeo com ffmpeg
-    if output_path: 
+    if save is True:
         fourcc = cv2.VideoWriter_fourcc(*'mp4v')
         fps = cap.get(cv2.CAP_PROP_FPS)
         frame_width = int(cap.get(3))
@@ -157,11 +157,12 @@ def process_video_graph(video_path, side='d', output_path=None, show=False):
             image[y_offset:y_offset + graph_img.shape[0], x_offset:x_offset + graph_img.shape[1]] = graph_img
 
             # Escrever o frame no vídeo de saída
-            if output_path:
-                out.write(image)
+            if save == True:
+                if output_path:
+                    out.write(image)
             
             # Exibir o vídeo (opcional)
-            if show is True:
+            if show == True:
                 cv2.imshow('Mediapipe Feed', image)
             
             if cv2.waitKey(10) & 0xFF == ord('q'):
@@ -169,11 +170,9 @@ def process_video_graph(video_path, side='d', output_path=None, show=False):
             
             frame_id += 1
 
-    if output_path: 
+    if show == True:
         cap.release()
         out.release()
-    
-    if show is True:
         cv2.destroyAllWindows()
 
     # Criar um DataFrame com os ângulos do quadril e joelho e os ids dos frames
@@ -184,8 +183,10 @@ def process_video_graph(video_path, side='d', output_path=None, show=False):
 
 
 
-def run_markerless(video_path, side='d', save=True, show=False, trial='', camera=5):
+def run_markerless(video_path, side='d', save=True, show=False):
     
+    print('  ')
+    print(save)
     main_folder = video_path.split('.')[0]
     
     # Get parent folder
@@ -208,21 +209,20 @@ def run_markerless(video_path, side='d', save=True, show=False, trial='', camera
     output_df = os.path.join(res_folder, f'{main_name}_markerless_{side}.csv')
     
     # Process the video and save results
-    print(video_path)
-    df_angles = process_video_graph(video_path, side=side, output_path=output_vid, show=show)
+    df_angles = process_video_graph(video_path, side=side, output_path=output_vid, show=show, save=save)
     print(df_angles)
-    if save is True:
+    if save == True:
         print(output_df) 
         df_angles.to_csv(output_df, index=False)
     
     # Plot and save the angles
-    tools.plot_angle(df_angles, save=True, output=output_fig)
-
+    if show is True:
+        tools.plot_angle(df_angles, save=False, output=output_fig)
+        if save is True:
+            tools.plot_angle(df_angles, save=True, output=output_fig)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Processa vídeos e calcula ângulos de joelho e quadril.")
-    parser.add_argument('--camera', type=int, required=False, help="Número da câmera")
-    parser.add_argument('--trial', type=int, required=False, help="Número do trial")
     parser.add_argument('--side', type=str, default='d', help="Lado do corpo (d para direito, e para esquerdo)")
     parser.add_argument('--videopath', type=str, required=True, help="Caminho do vídeo")
     parser.add_argument('--save', required=False, help="Salvar em CSV")
@@ -230,4 +230,4 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
     
-    run_markerless(video_path=args.videopath, side=args.side, save=args.save, show=args.show, trial=args.trial, camera=args.camera)
+    run_markerless(video_path=args.videopath, side=args.side, save=args.save, show=args.show)
