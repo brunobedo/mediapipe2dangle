@@ -65,7 +65,7 @@ def plot_to_image(frame_ids, knee_angles, hip_angles):
 
 
 
-def process_video_graph(video_path, side='d', output_path=None, show=False, save=True):
+def process_video_graph(video_path, side='d', min_confidence=0.5, scale_factor=0.5, output_path=None, show=False, save=True):
     print(' ')
     print('Calculating Jointe angles:')
     mp_pose = mp.solutions.pose
@@ -87,7 +87,7 @@ def process_video_graph(video_path, side='d', output_path=None, show=False, save
     knee_angles = []
     frame_ids = []
 
-    with mp_pose.Pose(min_detection_confidence=0.7, min_tracking_confidence=0.7) as pose:
+    with mp_pose.Pose(min_detection_confidence=min_confidence, min_tracking_confidence=min_confidence) as pose:
         frame_id = 0
         while cap.isOpened():
             ret, frame = cap.read()
@@ -161,7 +161,7 @@ def process_video_graph(video_path, side='d', output_path=None, show=False, save
             graph_height, graph_width, _ = graph_img.shape
 
             # Redimensionar o gráfico, se necessário
-            scale_factor = 0.3  # Definir o fator de escala
+            scale_factor = scale_factor  # Definir o fator de escala
             graph_img = cv2.resize(graph_img, (int(graph_width * scale_factor), int(graph_height * scale_factor)))
 
             # Inserir o gráfico no canto superior esquerdo do frame de vídeo
@@ -194,7 +194,7 @@ def process_video_graph(video_path, side='d', output_path=None, show=False, save
 
 
 
-def run_markerless(video_path, side='d', save=True, show=False):
+def run_markerless(video_path, side='d', save=True, show=False, min_confidence=0.5, scale_factor=0.5):
     print('-----------------------------------')
     print('Calculating Hip and Knee Flexion:')
     print(' ')
@@ -227,7 +227,7 @@ def run_markerless(video_path, side='d', save=True, show=False):
     output_df = os.path.join(res_folder, f'{main_name}_markerless_{side}.csv')
     
     # Process the video and save results
-    df_angles = process_video_graph(video_path, side=side, output_path=output_vid, show=show, save=save)
+    df_angles = process_video_graph(video_path, side=side, output_path=output_vid, show=show, save=save, min_confidence=min_confidence, scale_factor=scale_factor)
     print(df_angles)
     if save == True:
         print(output_df) 
@@ -257,7 +257,9 @@ if __name__ == '__main__':
     parser.add_argument('--videopath', type=str, required=True, help="Caminho do vídeo")
     parser.add_argument('--save', type=str_to_bool, default=True, help="Salvar em CSV (True ou False)")
     parser.add_argument('--show', type=str_to_bool, default=False, help="Mostrar o vídeo (True ou False)")
+    parser.add_argument('--min_confidence', type=float, default=False, help="Valor entre 0 e 1 para tracking no mediapipe")
+    parser.add_argument('--scale_factor', type=float, default=False, help="Valor entre 0 e 1 para tamanho do gráfico junto ao vídeo")
 
     args = parser.parse_args()
     
-    run_markerless(video_path=args.videopath, side=args.side, save=args.save, show=args.show)
+    run_markerless(video_path=args.videopath, side=args.side, save=args.save, show=args.show, min_confidence=args.min_confidence, scale_factor=args.scale_factor)
