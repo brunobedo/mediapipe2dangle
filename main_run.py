@@ -14,7 +14,6 @@ import sys
 def update_angles(angle_hip, angle_knee):
     # Construa a string formatada
     output = f'Joint Angles | Hip: {round(angle_hip, 2)} - Knee: {round(angle_knee, 2)}'
-    # Use \r para retornar ao início da linha e sobrescrever o texto
     sys.stdout.write(f'\r{output}')
     sys.stdout.flush()
 
@@ -262,10 +261,3 @@ if __name__ == '__main__':
     args = parser.parse_args()
     
     run_markerless(video_path=args.videopath, side=args.side, save=args.save, show=args.show)
-
-    # file = 'E:/Mestrado/Coletas/voluntarios/ANC/gopro/editados/03/anc_03_s3_t1e.mp4'
-    # run_markerless(video_path=file, side='e', save=True, show=True)
-
-
-
-    
