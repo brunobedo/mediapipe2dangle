@@ -257,8 +257,8 @@ if __name__ == '__main__':
     parser.add_argument('--videopath', type=str, required=True, help="Caminho do vídeo")
     parser.add_argument('--save', type=str_to_bool, default=True, help="Salvar em CSV (True ou False)")
     parser.add_argument('--show', type=str_to_bool, default=False, help="Mostrar o vídeo (True ou False)")
-    parser.add_argument('--min_confidence', type=float, default=False, help="Valor entre 0 e 1 para tracking no mediapipe")
-    parser.add_argument('--scale_factor', type=float, default=False, help="Valor entre 0 e 1 para tamanho do gráfico junto ao vídeo")
+    parser.add_argument('--min_confidence', type=float, default=0.9, help="Valor entre 0 e 1 para tracking no mediapipe")
+    parser.add_argument('--scale_factor', type=float, default=0.5, help="Valor entre 0 e 1 para tamanho do gráfico junto ao vídeo")
 
     args = parser.parse_args()
     
