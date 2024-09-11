@@ -1,5 +1,3 @@
-
-```markdown
 # Hip and Knee Joints 2D Angles Estimation and Video Processing
 
 This project calculates 2D knee and hip joint angles from a video file using the Mediapipe library and other Python tools. The results are displayed on the processed video and saved as .CSV, images, and a video file. The tool is flexible for either the left or right side of the body and offers options to visualize the processing in real-time.
@@ -29,6 +27,10 @@ It’s recommended to create a virtual environment to manage the dependencies:
 ```bash
 python -m venv env
 ```
+Or
+```bash
+conda create -n mediapipe2dangle python=3.9
+```
 
 Activate the virtual environment:
 
@@ -39,6 +41,10 @@ Activate the virtual environment:
 - On **macOS/Linux**:
   ```bash
   source env/bin/activate
+  ```
+- Usind conda:
+  ```bash
+  conda activate mediapipe2dangle
   ```
 
 ### 3. Install Dependencies
@@ -64,13 +70,13 @@ Make sure your environment is set up with the correct versions of these dependen
 mediapipe2dangle/
 │
 ├── videos/               # Directory where video files are stored
+    └── results/          # Output folder (created automatically)
 ├── main_run.py           # Main script for running the joint angle estimation
 ├── maintools.py          # Helper functions used by the main script
 ├── example.py            # Example script demonstrating usage (.py file)
 ├── example.ipynb         # Jupyter notebook example (.ipynb file)
 ├── README.md             # Documentation
 ├── requirements.txt      # Python dependencies
-└── videos/results/       # Output folder (created automatically)
 ```
 
 ## Usage
@@ -122,8 +128,7 @@ Example plot of angles:
 ![Knee and Hip Angles Plot](results/example_markerless_r.jpg)
 
 ## License
-This project is licensed under the MIT License.
-```
+This project is primarily licensed under the GNU Lesser General Public License v3.0. Please note that the software is provided "as is," without any warranty of any kind, either express or implied. If you use the code or data, we kindly ask that you cite our work. Let's collaborate and push the boundaries together!
 
-This `README.md` should guide any user through installing the project, understanding its structure, and using the main functionality effectively.
-```
+## Funding
+This project was partially financed by the Dean’s Office for Research and Innovation of the University of São Paulo - Support to New Professors.
