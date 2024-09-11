@@ -12,7 +12,7 @@ import sys
 
 
 def update_angles(angle_hip, angle_knee):
-    # Construa a string formatada
+    # Build the formatted string
     output = f'Joint Angles | Hip: {round(angle_hip, 2)} - Knee: {round(angle_knee, 2)}'
     sys.stdout.write(f'\r{output}')
     sys.stdout.flush()
@@ -20,61 +20,61 @@ def update_angles(angle_hip, angle_knee):
 
 
 def plot_to_image(frame_ids, knee_angles, hip_angles):
-    # Criar o gráfico em um buffer de memória
-    fig, ax = plt.subplots(figsize=(10, 5))  # Definir o tamanho do gráfico
+    # Create the plot in a memory buffer
+    fig, ax = plt.subplots(figsize=(10, 5))  # Set the plot size
     
-    # Plotar os ângulos com aumento da grossura da linha
-    ax.plot(frame_ids, knee_angles, label="Ângulo do Joelho", color="k", linewidth=5)
-    ax.plot(frame_ids, hip_angles, label="Ângulo do Quadril", color="red", linewidth=5)
+    # Plot the angles with thicker lines
+    ax.plot(frame_ids, knee_angles, label="Knee Angle", color="k", linewidth=5)
+    ax.plot(frame_ids, hip_angles, label="Hip Angle", color="red", linewidth=5)
 
-    # Definir o fundo da figura como preto com alpha 0.5
+    # Set the figure background to white with alpha 0.5
     fig.patch.set_facecolor('white')
     fig.patch.set_alpha(0.5)
     
-    # Definir o fundo dos eixos (área do gráfico) como preto
+    # Set the axes (plot area) background to white
     ax.set_facecolor('white')
-    # Definir limites dos eixos
+    # Set axis limits
     ax.set_xlim(0, max(frame_ids) + 10)
     ax.set_ylim(0, 180)
     
-    # Definir rótulos e aumentar o tamanho da fonte
+    # Set labels and increase font size
     ax.set_xlabel("Frame", fontsize=20)
-    ax.set_ylabel("Ângulo (graus)", fontsize=20)
-    ax.legend(loc='upper right', fontsize=20)  # Aumentar o tamanho da fonte da legenda
+    ax.set_ylabel("Angle (degrees)", fontsize=20)
+    ax.legend(loc='upper right', fontsize=20)  # Increase the font size of the legend
     
-    # Adicionar título ao gráfico com fonte maior
-    ax.set_title("Ângulos do Joelho e Quadril", fontsize=22)
+    # Add title to the plot with a larger font
+    ax.set_title("Knee and Hip Angles", fontsize=22)
 
-    # Salvar o gráfico em um buffer de memória com fundo transparente
+    # Save the plot in a memory buffer with a transparent background
     buf = BytesIO()
     plt.savefig(buf, format="png", transparent=True)
     buf.seek(0)
     
-    # Abrir a imagem com PIL e converter para numpy array
+    # Open the image with PIL and convert it to a numpy array
     img_pil = Image.open(buf)
     img_cv = np.array(img_pil)
     
-    # Fechar o buffer e a figura
+    # Close the buffer and the figure
     buf.close()
     plt.close(fig)
     
-    # Converter a imagem RGB para BGR (OpenCV usa BGR)
+    # Convert the RGB image to BGR (OpenCV uses BGR)
     img_bgr = cv2.cvtColor(img_cv, cv2.COLOR_RGB2BGR)
     
     return img_bgr
 
 
 
-def process_video_graph(video_path, side='d', min_confidence=0.5, scale_factor=0.5, output_path=None, show=False, save=True):
+def process_video_graph(video_path, side='r', min_confidence=0.5, scale_factor=0.5, output_path=None, show=False, save=True):
     print(' ')
-    print('Calculating Jointe angles:')
+    print('Calculating Joint angles:')
     mp_pose = mp.solutions.pose
     mp_drawing = mp.solutions.drawing_utils
 
-    # Carregar o vídeo
+    # Load the video
     cap = cv2.VideoCapture(video_path)
 
-    # Definir codec e criar VideoWriter para salvar o vídeo com ffmpeg
+    # Define codec and create VideoWriter to save the video with ffmpeg
     if show is True:
         fourcc = cv2.VideoWriter_fourcc(*'mp4v')
         fps = cap.get(cv2.CAP_PROP_FPS)
@@ -82,7 +82,7 @@ def process_video_graph(video_path, side='d', min_confidence=0.5, scale_factor=0
         frame_height = int(cap.get(4))
         out = cv2.VideoWriter(output_path, fourcc, fps, (frame_width, frame_height))
 
-    # Listas para armazenar os ângulos do quadril e joelho
+    # Lists to store hip and knee angles
     hip_angles = []
     knee_angles = []
     frame_ids = []
@@ -94,61 +94,61 @@ def process_video_graph(video_path, side='d', min_confidence=0.5, scale_factor=0
             if not ret:
                 break
             
-            # Recolor para RGB
+            # Recolor to RGB
             image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             image.flags.writeable = False
             
-            # Processar a imagem para detecção de poses
+            # Process the image for pose detection
             results = pose.process(image)
             
-            # Recolor de volta para BGR
+            # Recolor back to BGR
             image.flags.writeable = True
             image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
-            # Extrair landmarks
+            # Extract landmarks
             try:
                 landmarks = results.pose_landmarks.landmark
-                if side == 'd': 
-                    # Coordenadas do quadril, joelho e tornozelo direito
+                if side == 'r': 
+                    # Right side hip, knee, ankle coordinates
                     hip = [landmarks[mp_pose.PoseLandmark.RIGHT_HIP.value].x, landmarks[mp_pose.PoseLandmark.RIGHT_HIP.value].y]
                     knee = [landmarks[mp_pose.PoseLandmark.RIGHT_KNEE.value].x, landmarks[mp_pose.PoseLandmark.RIGHT_KNEE.value].y]
                     ankle = [landmarks[mp_pose.PoseLandmark.RIGHT_ANKLE.value].x, landmarks[mp_pose.PoseLandmark.RIGHT_ANKLE.value].y]
                     shoulder = [landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER.value].x, landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER.value].y]
 
-                elif side == 'e':
-                    # Coordenadas do quadril, joelho e tornozelo esquerdo
+                elif side == 'l':
+                    # Left side hip, knee, ankle coordinates
                     hip = [landmarks[mp_pose.PoseLandmark.LEFT_HIP.value].x, landmarks[mp_pose.PoseLandmark.LEFT_HIP.value].y]
                     knee = [landmarks[mp_pose.PoseLandmark.LEFT_KNEE.value].x, landmarks[mp_pose.PoseLandmark.LEFT_KNEE.value].y]
                     ankle = [landmarks[mp_pose.PoseLandmark.LEFT_ANKLE.value].x, landmarks[mp_pose.PoseLandmark.LEFT_ANKLE.value].y]
                     shoulder = [landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].x, landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].y]
 
                 else:
-                    raise ValueError("O valor de 'side' precisa ser 'd' (direito) ou 'e' (esquerdo).")
+                    raise ValueError("The 'side' value must be 'r' (right) or 'l' (left).")
                 
-                # Cálculo dos ângulos
-                angle_knee = tools.calculate_angle(hip, knee, ankle)  # Ângulo do joelho
-                angle_hip = tools.calculate_angle(shoulder, hip, knee)  # Ângulo do quadril
+                # Angle calculations
+                angle_knee = tools.calculate_angle(hip, knee, ankle)  # Knee angle
+                angle_hip = tools.calculate_angle(shoulder, hip, knee)  # Hip angle
                 angle_hip = 180 - angle_hip
                 angle_knee = 180 - angle_knee
 
                 # Print joint angles
                 update_angles(angle_hip, angle_knee)
 
-                # Armazenar ângulos
+                # Store angles
                 knee_angles.append(angle_knee)
                 hip_angles.append(angle_hip)
                 frame_ids.append(frame_id)
 
-                # Exibir os ângulos calculados no vídeo
-                cv2.putText(image, f'Joelho: {round(angle_knee, 2)}', 
+                # Display the calculated angles on the video
+                cv2.putText(image, f'Knee: {round(angle_knee, 2)}', 
                             tuple(np.multiply(knee, [frame_width, frame_height]).astype(int)), 
                             cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2, cv2.LINE_AA)
 
-                cv2.putText(image, f'Quadril: {round(angle_hip, 2)}', 
+                cv2.putText(image, f'Hip: {round(angle_hip, 2)}', 
                             tuple(np.multiply(hip, [frame_width, frame_height]).astype(int)), 
                             cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2, cv2.LINE_AA)
                 
-                # Renderizar landmarks e conexões no vídeo
+                # Render landmarks and connections on the video
                 mp_drawing.draw_landmarks(image, results.pose_landmarks, mp_pose.POSE_CONNECTIONS,
                                             mp_drawing.DrawingSpec(color=(0, 0, 0), thickness=4, circle_radius=2),
                                             mp_drawing.DrawingSpec(color=(203, 17, 17), thickness=8, circle_radius=2))
@@ -156,24 +156,24 @@ def process_video_graph(video_path, side='d', min_confidence=0.5, scale_factor=0
             except:
                 pass
             
-            # Gerar o gráfico e adicioná-lo ao frame
+            # Generate the graph and add it to the video frame
             graph_img = plot_to_image(frame_ids, knee_angles, hip_angles)
             graph_height, graph_width, _ = graph_img.shape
 
-            # Redimensionar o gráfico, se necessário
-            scale_factor = scale_factor  # Definir o fator de escala
+            # Resize the graph if necessary
+            scale_factor = scale_factor  # Define the scale factor
             graph_img = cv2.resize(graph_img, (int(graph_width * scale_factor), int(graph_height * scale_factor)))
 
-            # Inserir o gráfico no canto superior esquerdo do frame de vídeo
-            x_offset, y_offset = 10, 10  # Posição do gráfico no frame
+            # Insert the graph in the top left corner of the video frame
+            x_offset, y_offset = 10, 10  # Graph position in the frame
             image[y_offset:y_offset + graph_img.shape[0], x_offset:x_offset + graph_img.shape[1]] = graph_img
 
-            # Escrever o frame no vídeo de saída
+            # Write the frame to the output video
             if show == True:
                 if output_path:
                     out.write(image)
             
-            # Exibir o vídeo (opcional)
+            # Display the video (optional)
             if show == True:
                 cv2.imshow('Mediapipe Feed', image)
             
@@ -187,18 +187,18 @@ def process_video_graph(video_path, side='d', min_confidence=0.5, scale_factor=0
         out.release()
         cv2.destroyAllWindows()
 
-    # Criar um DataFrame com os ângulos do quadril e joelho e os ids dos frames
+    # Create a DataFrame with hip and knee angles and frame ids
     df = pd.DataFrame({'Frame': frame_ids, 'Knee_Angle': knee_angles, 'Hip_Angle': hip_angles})
 
     return df
 
 
 
-def run_markerless(video_path, side='d', save=True, show=False, min_confidence=0.5, scale_factor=0.5):
+def run_markerless(video_path, side='r', save=True, show=False, min_confidence=0.5, scale_factor=0.5):
     print('-----------------------------------')
     print('Calculating Hip and Knee Flexion:')
     print(' ')
-    # Implemente a função conforme necessário
+    # Implement the function as needed
     print(f'Video Path: {video_path}')
     print(f'Side: {side}')
     print(f'Save: {save}')
@@ -254,13 +254,13 @@ def str_to_bool(value):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="Processa vídeos e calcula ângulos de joelho e quadril.")
-    parser.add_argument('--side', type=str, default='d', help="Lado do corpo (d para direito, e para esquerdo)")
-    parser.add_argument('--videopath', type=str, required=True, help="Caminho do vídeo")
-    parser.add_argument('--save', type=str_to_bool, default=True, help="Salvar em CSV (True ou False)")
-    parser.add_argument('--show', type=str_to_bool, default=False, help="Mostrar o vídeo (True ou False)")
-    parser.add_argument('--min_confidence', type=float, default=0.9, help="Valor entre 0 e 1 para tracking no mediapipe")
-    parser.add_argument('--scale_factor', type=float, default=0.5, help="Valor entre 0 e 1 para tamanho do gráfico junto ao vídeo")
+    parser = argparse.ArgumentParser(description="Processes videos and calculates knee and hip angles.")
+    parser.add_argument('--side', type=str, default='r', help="Body side (d for right, e for left)")
+    parser.add_argument('--videopath', type=str, required=True, help="Path to the video")
+    parser.add_argument('--save', type=str_to_bool, default=True, help="Save as CSV (True or False)")
+    parser.add_argument('--show', type=str_to_bool, default=False, help="Show the video (True or False)")
+    parser.add_argument('--min_confidence', type=float, default=0.9, help="Value between 0 and 1 for mediapipe tracking")
+    parser.add_argument('--scale_factor', type=float, default=0.5, help="Value between 0 and 1 for graph size in the video")
 
     args = parser.parse_args()
     
