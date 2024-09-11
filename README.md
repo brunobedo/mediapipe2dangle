@@ -124,8 +124,10 @@ Example of CSV output:
 | ...   | ...        | ...       |
 
 Example plot of angles:
+![Knee and Hip Angles Plot](videos/results/video_test_1/video_test_1_markerless_r.jpg)
 
-![Knee and Hip Angles Plot](results/example_markerless_r.jpg)
+Example video of angles:
+![Knee and Hip Angles Video](videos/results/video_test_1/video_test_1_markerless_r.mp4)
 
 ## License
 This project is primarily licensed under the GNU Lesser General Public License v3.0. Please note that the software is provided "as is," without any warranty of any kind, either express or implied. If you use the code or data, we kindly ask that you cite our work. Let's collaborate and push the boundaries together!
