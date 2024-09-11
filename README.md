@@ -126,3 +126,4 @@ This project is licensed under the MIT License.
 ```
 
 This `README.md` should guide any user through installing the project, understanding its structure, and using the main functionality effectively.
+```
