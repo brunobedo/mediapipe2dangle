@@ -42,7 +42,7 @@ Activate the virtual environment:
   ```bash
   source env/bin/activate
   ```
-- Usind conda:
+- Using conda:
   ```bash
   conda activate mediapipe2dangle
   ```
