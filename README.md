@@ -70,13 +70,13 @@ Make sure your environment is set up with the correct versions of these dependen
 mediapipe2dangle/
 │
 ├── videos/               # Directory where video files are stored
+    └── results/   # Output folder (created automatically)
 ├── main_run.py           # Main script for running the joint angle estimation
 ├── maintools.py          # Helper functions used by the main script
 ├── example.py            # Example script demonstrating usage (.py file)
 ├── example.ipynb         # Jupyter notebook example (.ipynb file)
 ├── README.md             # Documentation
 ├── requirements.txt      # Python dependencies
-└── videos/results/       # Output folder (created automatically)
 ```
 
 ## Usage
