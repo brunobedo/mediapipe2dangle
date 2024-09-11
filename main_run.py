@@ -203,6 +203,8 @@ def run_markerless(video_path, side='d', save=True, show=False, min_confidence=0
     print(f'Side: {side}')
     print(f'Save: {save}')
     print(f'Show: {show}')
+    print(f'min_confidence: {min_confidence}')
+    print(f'scale_factor: {scale_factor}')
 
     # Get the main folder
     main_folder = video_path.split('.')[0]
