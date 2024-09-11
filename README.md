@@ -27,6 +27,10 @@ It’s recommended to create a virtual environment to manage the dependencies:
 ```bash
 python -m venv env
 ```
+Or
+```bash
+conda create -n mediapipe2dangle python=3.9
+```
 
 Activate the virtual environment:
 
@@ -37,6 +41,10 @@ Activate the virtual environment:
 - On **macOS/Linux**:
   ```bash
   source env/bin/activate
+  ```
+- Usind conda:
+  ```bash
+  conda activate mediapipe2dangle
   ```
 
 ### 3. Install Dependencies
@@ -120,8 +128,7 @@ Example plot of angles:
 ![Knee and Hip Angles Plot](results/example_markerless_r.jpg)
 
 ## License
-This project is licensed under the MIT License.
-```
+This project is primarily licensed under the GNU Lesser General Public License v3.0. Note that the software is provided "as is", without warranty of any kind, express or implied. 
 
-This `README.md` should guide any user through installing the project, understanding its structure, and using the main functionality effectively.
-```
+## Funding
+This project was partially financed by the Dean’s Office for Research and Innovation of the University of São Paulo - Support to New Professors.
