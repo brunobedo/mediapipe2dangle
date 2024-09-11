@@ -1,5 +1,3 @@
-
-```markdown
 # Hip and Knee Joints 2D Angles Estimation and Video Processing
 
 This project calculates 2D knee and hip joint angles from a video file using the Mediapipe library and other Python tools. The results are displayed on the processed video and saved as .CSV, images, and a video file. The tool is flexible for either the left or right side of the body and offers options to visualize the processing in real-time.
