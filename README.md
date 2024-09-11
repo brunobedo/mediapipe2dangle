@@ -119,7 +119,7 @@ When running the script, the following outputs will be generated in the `results
 
 ![Knee and Hip Angles Plot](videos/example_giff.gif)
 
-###Example of CSV output:
+### Example of CSV output:
 
 | Frame | Knee_Angle | Hip_Angle |
 |-------|------------|-----------|
@@ -127,7 +127,7 @@ When running the script, the following outputs will be generated in the `results
 | 1     | 146.1      | 149.9     |
 | ...   | ...        | ...       |
 
-###Example plot of angles:
+### Example plot of angles:
 
 <img src="videos/results/video_test_1/video_test_1_markerless_r.jpg" alt="Knee and Hip Angles Plot" width="400"/>
 
