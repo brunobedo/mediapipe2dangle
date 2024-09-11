@@ -158,7 +158,9 @@ cython_debug/
 test.ipynb
 
 # Folders
-videos/results
+videos/results/video_test_2
+videos/results/video_test_3
+videos/results/video_test_4
 
 # Files 
 run_joice.py
