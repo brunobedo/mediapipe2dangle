@@ -115,7 +115,11 @@ When running the script, the following outputs will be generated in the `results
 2. **CSV file** containing frame numbers and corresponding knee and hip angles.
 3. **Image plot** showing the knee and hip angles over time.
 
-Example of CSV output:
+### Example video of angles:
+
+![Knee and Hip Angles Plot](videos/example_giff.gif)
+
+###Example of CSV output:
 
 | Frame | Knee_Angle | Hip_Angle |
 |-------|------------|-----------|
@@ -123,11 +127,10 @@ Example of CSV output:
 | 1     | 146.1      | 149.9     |
 | ...   | ...        | ...       |
 
-Example plot of angles:
-![Knee and Hip Angles Plot](videos/results/video_test_1/video_test_1_markerless_r.jpg)
+###Example plot of angles:
 
-Example video of angles:
-![Knee and Hip Angles Video](videos/results/video_test_1/video_test_1_markerless_r.mp4)
+<img src="videos/results/video_test_1/video_test_1_markerless_r.jpg" alt="Knee and Hip Angles Plot" width="400"/>
+
 
 ## License
 This project is primarily licensed under the GNU Lesser General Public License v3.0. Please note that the software is provided "as is," without any warranty of any kind, either express or implied. If you use the code or data, we kindly ask that you cite our work. Let's collaborate and push the boundaries together!
