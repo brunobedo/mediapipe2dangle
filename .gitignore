@@ -155,7 +155,7 @@ dmypy.json
 cython_debug/
 
 # Notebooks
-*.ipynb
+# *.ipynb
 
 # Folders
 videos/results
