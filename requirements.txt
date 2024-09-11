@@ -1,4 +1,4 @@
-opencv-python
-mediapipe
-numpy
-pandas
+opencv-python==4.10.0.84
+mediapipe==0.10.14
+numpy==2.0.2
+pandas==2.2.2
