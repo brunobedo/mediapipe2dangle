@@ -17,7 +17,7 @@ This project calculates 2D knee and hip joint angles from a video file using the
 Start by cloning this repository to your local machine:
 
 ```bash
-git clone https://github.com/your-username/mediapipe2dangle.git
+git clone https://github.com/brunobedo/mediapipe2dangle.git
 cd mediapipe2dangle
 ```
 
@@ -71,7 +71,7 @@ mediapipe2dangle/
 │
 ├── videos/               # Directory where video files are stored
     └── results/          # Output folder (created automatically)
-├── main_run.py           # Main script for running the joint angle estimation
+├── run.py                # Main script for running the joint angle estimation
 ├── maintools.py          # Helper functions used by the main script
 ├── example.py            # Example script demonstrating usage (.py file)
 ├── example.ipynb         # Jupyter notebook example (.ipynb file)
@@ -81,12 +81,12 @@ mediapipe2dangle/
 
 ## Usage
 
-To run the joint angle estimation tool, use the `main_run.py` script. The script processes a video and outputs a video with overlaid angles, a CSV file with the angles over time, and a plot image.
+To run the joint angle estimation tool, use the `run.py` script. The script processes a video and outputs a video with overlaid angles, a CSV file with the angles over time, and a plot image.
 
 ### Basic Command
 
 ```bash
-python main_run.py --videopath path_to_your_video.mp4 --side r
+python run.py --videopath path_to_your_video.mp4 --side r
 ```
 
 This will process the right side (`r`) of the body by default. Change `r` to `l` to process the left side.
@@ -103,7 +103,7 @@ This will process the right side (`r`) of the body by default. Change `r` to `l`
 ### Full Example
 
 ```bash
-python main_run.py --videopath ./videos/example.mp4 --side r --save True --show True --min_confidence 0.8 --scale_factor 0.7
+python run.py --videopath ./videos/example.mp4 --side r --save True --show True --min_confidence 0.8 --scale_factor 0.7
 ```
 
 This command processes the video `example.mp4` located in the `videos` directory, calculating angles on the right side, saving the output, showing the video while processing, with a minimum confidence of `0.8` and graph scaling at `70%`.
