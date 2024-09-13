@@ -157,7 +157,6 @@ cython_debug/
 # Notebooks
 teste.ipynb
 test.ipynb
-backup.ipynb
 
 # Folders
 videos/results/video_test_2
