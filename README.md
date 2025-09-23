@@ -136,4 +136,4 @@ When running the script, the following outputs will be generated in the `results
 This project is primarily licensed under the GNU Lesser General Public License v3.0. Please note that the software is provided "as is," without any warranty of any kind, either express or implied. If you use the code or data, we kindly ask that you cite our work. Let's collaborate and push the boundaries together!
 
 ## Funding
-This project was partially financed by the Dean’s Office for Research and Innovation of the University of São Paulo - Support to New Professors.
+This project was partially financed by the Dean’s Office for Research and Innovation of the University of São Paulo - Support to New Professors and by São Paulo Research Foundation (FAPESP) [grant numbers \#2024/10736-9]. 
