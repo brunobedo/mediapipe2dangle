@@ -131,6 +131,26 @@ When running the script, the following outputs will be generated in the `results
 
 <img src="videos/results/video_test_1/video_test_1_markerless_r.jpg" alt="Knee and Hip Angles Plot" width="400"/>
 
+## Citing _vailá_
+
+If you use project in your research or project, please consider citing our work:
+
+```bibtex
+@article{Pereira2025,
+  title = {Markerless Pixel-Based Pipeline for Quantifying 2D Lower Limb Kinematics During Squatting: A Preliminary Validation Study},
+  volume = {6},
+  ISSN = {2673-7078},
+  url = {http://dx.doi.org/10.3390/biomechanics6010001},
+  DOI = {10.3390/biomechanics6010001},
+  number = {1},
+  journal = {Biomechanics},
+  publisher = {MDPI AG},
+  author = {Pereira,  Dayanne R. and Catelli,  Danilo S. and Santiago,  Paulo R. P. and Bedo,  Bruno L. S.},
+  year = {2025},
+  month = dec,
+  pages = {1}
+}
+```
 
 ## License
 This project is primarily licensed under the GNU Lesser General Public License v3.0. Please note that the software is provided "as is," without any warranty of any kind, either express or implied. If you use the code or data, we kindly ask that you cite our work. Let's collaborate and push the boundaries together!
