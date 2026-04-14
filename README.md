@@ -131,7 +131,7 @@ When running the script, the following outputs will be generated in the `results
 
 <img src="videos/results/video_test_1/video_test_1_markerless_r.jpg" alt="Knee and Hip Angles Plot" width="400"/>
 
-## Citing _vailá_
+## Citing
 
 If you use project in your research or project, please consider citing our work:
 
